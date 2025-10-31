@@ -45,3 +45,4 @@ cd do_an_ma_nguon_mo
 ## 🛠️ Công nghệ
 ### FrontEnd: *HTML*, *CSS*, *Bootstrap3*,*JavaScript*, *JSP*, *JQuery*
 ### BackEnd: *Spring boot 3*, *JWT*
+### Database: *MySQL*
