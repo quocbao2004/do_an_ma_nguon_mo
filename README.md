@@ -37,7 +37,7 @@ Thành viên nhóm:
 
 ## ⚙️ Cài đặt
 ### 1. Clone dự án
-git clone git@github.com:quocbao2004/do_an_ma_nguon_mo.git
+git clone https://github.com/quocbao2004/do_an_ma_nguon_mo.git
 cd do_an_ma_nguon_mo
 
 ---
