@@ -108,7 +108,7 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
                 where.append(" AND rentarea.value >= " + rentAreaFrom);
             }
             if(rentAreaTo != null && NumberUtils.isNumber(rentAreaTo.toString()) == true ) {
-                where.append(" AND rentarea.value == " + rentAreaTo);
+                where.append(" AND rentarea.value <= " + rentAreaTo);
             }
             where.append(") ");
         }
