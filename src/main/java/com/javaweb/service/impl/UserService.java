@@ -78,7 +78,7 @@ public class UserService implements IUserService {
     public void delete(long[] ids) {
         for (Long item : ids) {
             UserEntity userEntity = userRepository.findById(item).get();
-            userEntity.setStatus(1);
+            userEntity.setStatus(0);
             userRepository.save(userEntity);
         }
     }
