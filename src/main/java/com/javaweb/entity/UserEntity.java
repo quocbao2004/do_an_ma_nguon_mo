@@ -32,11 +32,11 @@ public class UserEntity extends BaseEntity {
     @Column(name = "phone", unique = true)
     private String phone;
 
-    @Column(name="note")
-    private String note;
+//    @Column(name="note")
+//    private String note;
 
-    @Column(name ="address")
-    private String address;
+//    @Column(name ="address")
+//    private String address;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
@@ -66,21 +66,21 @@ public class UserEntity extends BaseEntity {
         this.phone = phone;
     }
 
-    public String getNote() {
-        return note;
-    }
+//    public String getNote() {
+//        return note;
+//    }
+//
+//    public void setNote(String note) {
+//        this.note = note;
+//    }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
 
     //    @OneToMany(mappedBy="staffs", fetch = FetchType.LAZY)
 //    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
