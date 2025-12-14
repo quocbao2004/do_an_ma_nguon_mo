@@ -17,9 +17,7 @@ import org.springframework.data.domain.Page;
 import org.apache.commons.lang.StringUtils;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -71,6 +69,16 @@ public class UserService implements IUserService {
         UserEntity res = userConverter.convertToEntity2(userDTO, user);
         res.setRoles(roles);
         userRepository.save(user);
+    }
+
+    @Override
+    public Map<Long, String> getStaffs() {
+        Map<Long,String> listStaffs = new HashMap<>();
+        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        for(UserEntity it : staffs){
+            listStaffs.put(it.getId(), it.getFullName());
+        }
+        return listStaffs;
     }
 
     @Override
