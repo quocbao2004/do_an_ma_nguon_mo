@@ -9,10 +9,17 @@ import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.apache.commons.lang.StringUtils;
 
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,8 +51,85 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
+    public UserDTO update(Long id, UserDTO updateUser) {
+        RoleEntity role = roleRepository.findOneByCode(updateUser.getRoleCode());
+        UserEntity oldUser = userRepository.findById(id).get();
+        UserEntity userEntity = userConverter.convertToEntity(updateUser);
+        userEntity.setUserName(oldUser.getUserName());
+        userEntity.setStatus(oldUser.getStatus());
+        userEntity.setRoles(Stream.of(role).collect(Collectors.toList()));
+        userEntity.setPassword(oldUser.getPassword());
+        return userConverter.convertToDto(userRepository.save(userEntity));
+    }
+
+    @Override
+    @Transactional
+    public void UpdateInfo(UserDTO userDTO){
+        UserEntity user = userRepository.findById(userDTO.getId()).get();
+        List<RoleEntity>roles = user.getRoles();
+        UserEntity res = userConverter.convertToEntity2(userDTO, user);
+        res.setRoles(roles);
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(long[] ids) {
+        for (Long item : ids) {
+            UserEntity userEntity = userRepository.findById(item).get();
+            userEntity.setStatus(0);
+            userRepository.save(userEntity);
+        }
+    }
+
+    @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
         return userConverter.convertToDto(userRepository.findOneByUserNameAndStatus(name, status));
+    }
+
+    @Override
+    public List<UserDTO> getUsers(String searchValue, Pageable pageable) {
+        Page<UserEntity> users = null;
+        if (StringUtils.isNotBlank(searchValue)) {
+            users = userRepository.findByUserNameContainingIgnoreCaseOrFullNameContainingIgnoreCaseAndStatusNot(searchValue, searchValue, 0, pageable);
+        } else {
+            users = userRepository.findByStatusNot(0, pageable);
+        }
+        List<UserEntity> newsEntities = users.getContent();
+        List<UserDTO> result = new ArrayList<>();
+        for (UserEntity userEntity : newsEntities) {
+            UserDTO userDTO = userConverter.convertToDto(userEntity);
+            userDTO.setRoleCode(userEntity.getRoles().get(0).getCode());
+            result.add(userDTO);
+        }
+        return result;
+
+    }
+
+    @Override
+    public int countTotalItems() {
+        return userRepository.countTotalItem();
+    }
+
+    @Override
+    public UserDTO findOneByUserName(String userName) {
+        UserEntity userEntity = userRepository.findOneByUserName(userName);
+        UserDTO userDTO = userConverter.convertToDto(userEntity);
+        return userDTO;
+
+    }
+
+    @Override
+    public UserDTO findUserById(long id) {
+        UserEntity entity = userRepository.findById(id).get();
+        List<RoleEntity> roles = entity.getRoles();
+        UserDTO dto = userConverter.convertToDto(entity);
+        roles.forEach(item -> {
+            dto.setRoleCode(item.getCode());
+        });
+        return dto;
+
     }
 
 }
