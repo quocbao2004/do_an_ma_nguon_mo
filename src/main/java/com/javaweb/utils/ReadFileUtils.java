@@ -16,6 +16,7 @@ public class ReadFileUtils extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String imageUrl = request.getRequestURI();
+        System.out.println("imageUrl:"+imageUrl);
         int repIndex = imageUrl.indexOf("/repository");
         String relativeImagePath = null;
         if(repIndex != -1) {
@@ -24,7 +25,8 @@ public class ReadFileUtils extends HttpServlet {
         }
         ServletOutputStream outStream;
         outStream = response.getOutputStream();
-        FileInputStream fin = new FileInputStream("C://home/office" + relativeImagePath);
+        FileInputStream fin = new FileInputStream("C://home/office/" + relativeImagePath);
+
         BufferedInputStream bin = new BufferedInputStream(fin);
         BufferedOutputStream bout = new BufferedOutputStream(outStream);
 

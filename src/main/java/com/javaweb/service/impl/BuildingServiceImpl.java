@@ -160,7 +160,7 @@ public class BuildingServiceImpl implements BuildingService {
         buildingFind.setRentArea(rentAreaStringBuilder.toString());
         buildingFind.setImage(building.getAvatar());
         buildingFind.setImageName(building.getAvatar());
-        buildingFind.setImageBase64(building.getAvatar());
+        buildingFind.setImageBase64(null);
         return buildingFind;
     }
 
