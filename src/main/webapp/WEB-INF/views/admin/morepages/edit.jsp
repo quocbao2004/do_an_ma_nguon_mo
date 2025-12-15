@@ -52,12 +52,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-xs-3">Địa chỉ</label>
-                                    <div class="col-xs-9">
-                                        <form:input class="form-control" path = "address" value = ""/>
-                                    </div>
-                                </div>
+
 
                                 <div class="form-group">
                                     <label class="col-xs-3">Số điện thoại</label>
@@ -70,13 +65,6 @@
                                     <label class="col-xs-3">Email</label>
                                     <div class="col-xs-9">
                                         <form:input class = "form-control" path="email" value = ""/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-xs-3">Ghi chú</label>
-                                    <div class="col-xs-9">
-                                        <form:input class = "form-control" path="note" value = ""/>
                                     </div>
                                 </div>
 

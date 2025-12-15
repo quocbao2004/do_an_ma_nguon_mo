@@ -94,14 +94,6 @@
                                     </div>
 
                                     <div class="profile-info-row">
-                                        <div class="profile-info-name"> Location </div>
-                                        <div class="profile-info-value">
-                                            <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                            <span class="editable" id="country">${UserInfo.address}</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="profile-info-row">
                                         <div class="profile-info-name"> Phone </div>
                                         <div class="profile-info-value">
                                             <span class="editable" id="phone">${UserInfo.phone}</span>
@@ -122,12 +114,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"> About Me </div>
-                                        <div class="profile-info-value">
-                                            <span class="editable" id="about">${UserInfo.note}</span>
-                                        </div>
-                                    </div>
 
                                     <div class="profile-info-row">
                                         <div class="profile-info-name"> Sửa thông tin </div>

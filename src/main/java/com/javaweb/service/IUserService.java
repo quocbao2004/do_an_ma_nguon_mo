@@ -1,5 +1,7 @@
 package com.javaweb.service;
 
+import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
@@ -16,4 +18,7 @@ public interface IUserService {
     void UpdateInfo(UserDTO userDTO);
     Map<Long, String> getStaffs();
     void delete(long[] idList);
+    void updatePassword(long id, PasswordDTO userDTO) throws MyException;
+    UserDTO resetPassword(long id);
+    UserDTO updateProfileOfUser(String id, UserDTO userDTO);
 }

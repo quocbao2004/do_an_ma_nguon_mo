@@ -4,6 +4,8 @@ import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.UserConverter;
 import com.javaweb.entity.RoleEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.UserRepository;
@@ -137,7 +139,34 @@ public class UserService implements IUserService {
             dto.setRoleCode(item.getCode());
         });
         return dto;
-
     }
 
+    @Override
+    @Transactional
+    public void updatePassword(long id, PasswordDTO passwordDTO) throws MyException {
+        UserEntity user = userRepository.findById(id).get();
+        if (passwordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())
+                && passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
+            user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+            userRepository.save(user);
+        } else {
+            throw new MyException(SystemConstant.CHANGE_PASSWORD_FAIL);
+        }
+    }
+
+    @Override
+    @Transactional
+    public UserDTO resetPassword(long id) {
+        UserEntity userEntity = userRepository.findById(id).get();
+        userEntity.setPassword(passwordEncoder.encode(SystemConstant.PASSWORD_DEFAULT));
+        return userConverter.convertToDto(userRepository.save(userEntity));
+    }
+
+    @Override
+    @Transactional
+    public UserDTO updateProfileOfUser(String username, UserDTO updateUser) {
+        UserEntity oldUser = userRepository.findOneByUserName(username);
+        oldUser.setFullName(updateUser.getFullName());
+        return userConverter.convertToDto(userRepository.save(oldUser));
+    }
 }
