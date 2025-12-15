@@ -29,10 +29,8 @@ public class ReadFileUtils extends HttpServlet {
         BufferedOutputStream bout = new BufferedOutputStream(outStream);
 
         int ch =0;
-        int count = 0;
-        while((ch=bin.read())!=-1 && count < 1000 ) {
+        while((ch=bin.read())!=-1) {
             bout.write(ch);
-            count++;
         }
 
         bin.close();
