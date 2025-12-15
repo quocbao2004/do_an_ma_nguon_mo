@@ -90,4 +90,34 @@ public class UserController {
 			mav.addObject(SystemConstant.MESSAGE_RESPONSE, messageMap.get(SystemConstant.MESSAGE_RESPONSE));
 		}
 	}
+
+    @RequestMapping(value = "/admin/morepages-profile", method = RequestMethod.GET)
+    public ModelAndView profile() {
+        ModelAndView mav = new ModelAndView("admin/morepages/profile");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        UserDTO user = userService.findOneByUserName(userName);
+        mav.addObject("UserInfo", user);
+        return mav;
+    }
+
+    @RequestMapping(value = "/admin/morepages-edit-{id}", method = RequestMethod.GET)
+    public ModelAndView EditProfile() {
+        ModelAndView mav = new ModelAndView("admin/morepages/edit");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        UserDTO user = userService.findOneByUserName(userName);
+        mav.addObject("UserEditInfo", user);
+        return mav;
+    }
+    @RequestMapping(value = "/admin/profile-password", method = RequestMethod.GET)
+    public ModelAndView updatePassword(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("admin/user/password");
+        UserDTO model = userService.findOneByUserName(SecurityUtils.getPrincipal().getUsername());
+        initMessageResponse(mav, request);
+        mav.addObject(SystemConstant.MODEL, model);
+        return mav;
+    }
+
+
 }
