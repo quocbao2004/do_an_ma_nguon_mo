@@ -36,8 +36,9 @@ public class CustomerAPI {
 
     @DeleteMapping(value="/{ids}")
     @Transactional
-    public void DeleteCustomer(@PathVariable Long[] ids){
+    ResponseEntity<Void> deleteCustomer(@PathVariable Long[] ids) {
         customerService.DeleteCustomer(ids);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/staffs")
