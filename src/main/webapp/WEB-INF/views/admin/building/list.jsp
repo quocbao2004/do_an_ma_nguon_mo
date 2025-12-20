@@ -11,6 +11,7 @@
         <%--<spring:message code="label.user.list"/>--%>
         Danh sách tòa nhà
     </title>
+
 </head>
 
 <body>
@@ -27,6 +28,8 @@
                         <a href="<c:url value="/admin/home"/>">
                             <%--<spring:message code="label.home"/>--%>
                             Trang chủ
+
+                            Báo cáo MNM
                         </a>
                     </li>
                     <li class="active">
